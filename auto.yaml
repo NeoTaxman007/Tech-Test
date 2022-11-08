@@ -1,15 +1,5 @@
 AWSTemplateFormatVersion: 'v1.1'
 
-Parameters:
-
-
-  Name:
-    Description: 'Please input your first and last name:'
-    Type: String
-    MaxLength: '50'
-    MinLength: '3'
-    ConstraintDescription: Please input your full name.
-
 Resources:
 
 
@@ -23,8 +13,8 @@ Resources:
         Tags:
           - Key: environment
             Value: sa-assignment
-          - Key: Name
-            Value: !Join ['-', [SAVPC, !Ref 'Name']]
+          
+            
 
     PublicSubnetA:
       Type: AWS::EC2::Subnet
@@ -36,8 +26,8 @@ Resources:
         Tags:
           - Key: environment
             Value: sa-assignment
-          - Key: Name
-            Value: !Join ['-', [PublicSubnetA, !Ref 'Name']]
+          
+            
 
     PublicSubnetB:
       Type: AWS::EC2::Subnet
@@ -49,8 +39,7 @@ Resources:
         Tags:
           - Key: environment
             Value: sa-assignment
-          - Key: Name
-            Value: !Join ['-', [PublicSubnetB, !Ref 'Name']]
+          
 
     SAIGW:
       Type: AWS::EC2::InternetGateway
@@ -58,8 +47,8 @@ Resources:
         Tags:
           - Key: environment
             Value: sa-assignment
-          - Key: Name
-            Value: !Join ['-', [IGW, !Ref 'Name']]
+          
+           
 
     SANetworkACL:
       Type: AWS::EC2::NetworkAcl
@@ -68,8 +57,8 @@ Resources:
         Tags:
           - Key: environment
             Value: sa-assignment
-          - Key: Name
-            Value: !Join ['-', [NACL, !Ref 'Name']]
+          
+            
 
     SARoutePublic:
       Type: AWS::EC2::RouteTable
@@ -78,8 +67,8 @@ Resources:
         Tags:
           - Key: environment
             Value: sa-assignment
-          - Key: Name
-            Value: !Join ['-', [PublicRoute, !Ref 'Name']]
+          
+            
 
     SARoutePrivate:
       Type: AWS::EC2::RouteTable
@@ -88,8 +77,8 @@ Resources:
         Tags:
           - Key: environment
             Value: sa-assignment
-          - Key: Name
-            Value: !Join ['-', [PrivateRoute, !Ref 'Name']]
+          
+            
 
     SAInstance1:
       Type: AWS::EC2::Instance
@@ -102,8 +91,8 @@ Resources:
         Tags:
           - Key: environment
             Value: sa-assignment
-          - Key: Name
-            Value: !Join ['-', [Instance1, !Ref 'Name']]
+          
+            
         NetworkInterfaces:
         - AssociatePublicIpAddress: 'true'
           DeleteOnTermination: 'true'
@@ -131,8 +120,8 @@ Resources:
         Tags:
           - Key: environment
             Value: sa-assignment
-          - Key: Name
-            Value: !Join ['-', [ELB, !Ref 'Name']]
+          
+            
 
     SASGELB:
       Type: AWS::EC2::SecurityGroup
@@ -142,8 +131,8 @@ Resources:
         Tags:
           - Key: environment
             Value: sa-assignment
-          - Key: Name
-            Value: ELBSecurityGroup
+          
+            
 
     SASGapp:
       Type: AWS::EC2::SecurityGroup
@@ -153,8 +142,8 @@ Resources:
         Tags:
           - Key: environment
             Value: sa-assignment
-          - Key: Name
-            Value: AppServerSecurityGroup
+          
+           
 
     SANACLEntry1:
       Type: AWS::EC2::NetworkAclEntry
@@ -187,17 +176,7 @@ Resources:
         NetworkAclId: !Ref 'SANetworkACL'
         SubnetId: !Ref 'PublicSubnetB'
 
-    subnetacl3:
-      Type: AWS::EC2::SubnetNetworkAclAssociation
-      Properties:
-        NetworkAclId: !Ref 'SANetworkACL'
-        SubnetId: !Ref 'PrivateSubnetA'
-
-    subnetacl4:
-      Type: AWS::EC2::SubnetNetworkAclAssociation
-      Properties:
-        NetworkAclId: !Ref 'SANetworkACL'
-        SubnetId: !Ref 'PrivateSubnetB'
+    
 
     SAIGWAttachment:
       Type: AWS::EC2::VPCGatewayAttachment
