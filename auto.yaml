@@ -1,6 +1,5 @@
 AWSTemplateFormatVersion: 'v1.1'
 
-
 Parameters:
 
 
@@ -228,9 +227,3 @@ Resources:
       DependsOn: SAIGW
 
     
-Outputs:
-
-
-  LoadBalancerDNSName:
-    Description: The DNSName of the load balancer
-    Value: !GetAtt SAelb.DNSName
